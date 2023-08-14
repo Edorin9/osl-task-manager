@@ -1,4 +1,12 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.3.1.0.yaml
+analyzer:
+  exclude:
+    - lib/**/*.g.dart
+  errors:
+    invalid_annotation_target: ignore
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+linter:
+  rules:
+    public_member_api_docs: false
+    prefer_relative_imports: true
+    always_use_package_imports: false
