@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 
 part 'tables.g.dart';
 
@@ -30,6 +31,8 @@ class Database extends _$Database {
 
   Future<int> createOrUpdateTask(TasksCompanion entry) =>
       into(tasks).insertOnConflictUpdate(entry);
+  Future<int> deleteTask(TasksCompanion task) =>
+      (delete(tasks)..where((t) => t.id.equals(task.id.value))).go();
   Future<List<Task>> get readAllTasks => select(tasks).get();
   Future<List<Task>> get readPendingTasks =>
       (select(tasks)..where((t) => t.status.equals(0))).get();
