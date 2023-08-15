@@ -20,18 +20,21 @@ mixin _$TasksEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() pageLoaded,
     required TResult Function(StatusFilter filter) filterChanged,
+    required TResult Function(Task task) itemCheckToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pageLoaded,
     TResult? Function(StatusFilter filter)? filterChanged,
+    TResult? Function(Task task)? itemCheckToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pageLoaded,
     TResult Function(StatusFilter filter)? filterChanged,
+    TResult Function(Task task)? itemCheckToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$TasksEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(PageLoaded value) pageLoaded,
     required TResult Function(FilterChanged value) filterChanged,
+    required TResult Function(ItemCheckToggled value) itemCheckToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageLoaded value)? pageLoaded,
     TResult? Function(FilterChanged value)? filterChanged,
+    TResult? Function(ItemCheckToggled value)? itemCheckToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageLoaded value)? pageLoaded,
     TResult Function(FilterChanged value)? filterChanged,
+    TResult Function(ItemCheckToggled value)? itemCheckToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$PageLoaded implements PageLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() pageLoaded,
     required TResult Function(StatusFilter filter) filterChanged,
+    required TResult Function(Task task) itemCheckToggled,
   }) {
     return pageLoaded();
   }
@@ -123,6 +130,7 @@ class _$PageLoaded implements PageLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pageLoaded,
     TResult? Function(StatusFilter filter)? filterChanged,
+    TResult? Function(Task task)? itemCheckToggled,
   }) {
     return pageLoaded?.call();
   }
@@ -132,6 +140,7 @@ class _$PageLoaded implements PageLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pageLoaded,
     TResult Function(StatusFilter filter)? filterChanged,
+    TResult Function(Task task)? itemCheckToggled,
     required TResult orElse(),
   }) {
     if (pageLoaded != null) {
@@ -145,6 +154,7 @@ class _$PageLoaded implements PageLoaded {
   TResult map<TResult extends Object?>({
     required TResult Function(PageLoaded value) pageLoaded,
     required TResult Function(FilterChanged value) filterChanged,
+    required TResult Function(ItemCheckToggled value) itemCheckToggled,
   }) {
     return pageLoaded(this);
   }
@@ -154,6 +164,7 @@ class _$PageLoaded implements PageLoaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageLoaded value)? pageLoaded,
     TResult? Function(FilterChanged value)? filterChanged,
+    TResult? Function(ItemCheckToggled value)? itemCheckToggled,
   }) {
     return pageLoaded?.call(this);
   }
@@ -163,6 +174,7 @@ class _$PageLoaded implements PageLoaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageLoaded value)? pageLoaded,
     TResult Function(FilterChanged value)? filterChanged,
+    TResult Function(ItemCheckToggled value)? itemCheckToggled,
     required TResult orElse(),
   }) {
     if (pageLoaded != null) {
@@ -242,6 +254,7 @@ class _$FilterChanged implements FilterChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() pageLoaded,
     required TResult Function(StatusFilter filter) filterChanged,
+    required TResult Function(Task task) itemCheckToggled,
   }) {
     return filterChanged(filter);
   }
@@ -251,6 +264,7 @@ class _$FilterChanged implements FilterChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pageLoaded,
     TResult? Function(StatusFilter filter)? filterChanged,
+    TResult? Function(Task task)? itemCheckToggled,
   }) {
     return filterChanged?.call(filter);
   }
@@ -260,6 +274,7 @@ class _$FilterChanged implements FilterChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pageLoaded,
     TResult Function(StatusFilter filter)? filterChanged,
+    TResult Function(Task task)? itemCheckToggled,
     required TResult orElse(),
   }) {
     if (filterChanged != null) {
@@ -273,6 +288,7 @@ class _$FilterChanged implements FilterChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(PageLoaded value) pageLoaded,
     required TResult Function(FilterChanged value) filterChanged,
+    required TResult Function(ItemCheckToggled value) itemCheckToggled,
   }) {
     return filterChanged(this);
   }
@@ -282,6 +298,7 @@ class _$FilterChanged implements FilterChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageLoaded value)? pageLoaded,
     TResult? Function(FilterChanged value)? filterChanged,
+    TResult? Function(ItemCheckToggled value)? itemCheckToggled,
   }) {
     return filterChanged?.call(this);
   }
@@ -291,6 +308,7 @@ class _$FilterChanged implements FilterChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageLoaded value)? pageLoaded,
     TResult Function(FilterChanged value)? filterChanged,
+    TResult Function(ItemCheckToggled value)? itemCheckToggled,
     required TResult orElse(),
   }) {
     if (filterChanged != null) {
@@ -306,6 +324,156 @@ abstract class FilterChanged implements TasksEvent {
   StatusFilter get filter;
   @JsonKey(ignore: true)
   _$$FilterChangedCopyWith<_$FilterChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ItemCheckToggledCopyWith<$Res> {
+  factory _$$ItemCheckToggledCopyWith(
+          _$ItemCheckToggled value, $Res Function(_$ItemCheckToggled) then) =
+      __$$ItemCheckToggledCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Task task});
+
+  $TaskCopyWith<$Res> get task;
+}
+
+/// @nodoc
+class __$$ItemCheckToggledCopyWithImpl<$Res>
+    extends _$TasksEventCopyWithImpl<$Res, _$ItemCheckToggled>
+    implements _$$ItemCheckToggledCopyWith<$Res> {
+  __$$ItemCheckToggledCopyWithImpl(
+      _$ItemCheckToggled _value, $Res Function(_$ItemCheckToggled) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? task = null,
+  }) {
+    return _then(_$ItemCheckToggled(
+      task: null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as Task,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TaskCopyWith<$Res> get task {
+    return $TaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ItemCheckToggled implements ItemCheckToggled {
+  const _$ItemCheckToggled({required this.task});
+
+  @override
+  final Task task;
+
+  @override
+  String toString() {
+    return 'TasksEvent.itemCheckToggled(task: $task)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ItemCheckToggled &&
+            (identical(other.task, task) || other.task == task));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, task);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ItemCheckToggledCopyWith<_$ItemCheckToggled> get copyWith =>
+      __$$ItemCheckToggledCopyWithImpl<_$ItemCheckToggled>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() pageLoaded,
+    required TResult Function(StatusFilter filter) filterChanged,
+    required TResult Function(Task task) itemCheckToggled,
+  }) {
+    return itemCheckToggled(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? pageLoaded,
+    TResult? Function(StatusFilter filter)? filterChanged,
+    TResult? Function(Task task)? itemCheckToggled,
+  }) {
+    return itemCheckToggled?.call(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? pageLoaded,
+    TResult Function(StatusFilter filter)? filterChanged,
+    TResult Function(Task task)? itemCheckToggled,
+    required TResult orElse(),
+  }) {
+    if (itemCheckToggled != null) {
+      return itemCheckToggled(task);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageLoaded value) pageLoaded,
+    required TResult Function(FilterChanged value) filterChanged,
+    required TResult Function(ItemCheckToggled value) itemCheckToggled,
+  }) {
+    return itemCheckToggled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageLoaded value)? pageLoaded,
+    TResult? Function(FilterChanged value)? filterChanged,
+    TResult? Function(ItemCheckToggled value)? itemCheckToggled,
+  }) {
+    return itemCheckToggled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageLoaded value)? pageLoaded,
+    TResult Function(FilterChanged value)? filterChanged,
+    TResult Function(ItemCheckToggled value)? itemCheckToggled,
+    required TResult orElse(),
+  }) {
+    if (itemCheckToggled != null) {
+      return itemCheckToggled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ItemCheckToggled implements TasksEvent {
+  const factory ItemCheckToggled({required final Task task}) =
+      _$ItemCheckToggled;
+
+  Task get task;
+  @JsonKey(ignore: true)
+  _$$ItemCheckToggledCopyWith<_$ItemCheckToggled> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

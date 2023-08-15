@@ -7,7 +7,7 @@ part 'task.g.dart';
 @freezed
 class Task with _$Task {
   const factory Task({
-    required int id,
+    required int? id,
     required String title,
     required String description,
     required Status status,

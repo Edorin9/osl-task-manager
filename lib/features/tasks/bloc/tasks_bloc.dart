@@ -13,6 +13,7 @@ part 'tasks_bloc.g.dart';
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
   TasksBloc(this._repository) : super(const TasksState()) {
+    on<ItemCheckToggled>(_onItemCheckToggled);
     on<PageLoaded>(_onPageLoaded);
     on<FilterChanged>(_onFilterChanged);
   }
@@ -31,12 +32,41 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     FilterChanged event,
     Emitter<TasksState> emit,
   ) async {
-    final getFiltered = event.filter == StatusFilter.pending
+    await _getFilteredTasks(event.filter, emit);
+  }
+
+  Future<void> _onItemCheckToggled(
+    ItemCheckToggled event,
+    Emitter<TasksState> emit,
+  ) async {
+    final id = await _repository.addOrEditTask(
+      event.task
+          .copyWith(
+            status: event.task.status == Status.completed
+                ? Status.pending
+                : Status.completed,
+          )
+          .toTaskModel(),
+    );
+    print('thisis: $id');
+    await _getFilteredTasks(state.statusFilter, emit);
+  }
+
+  Future<void> _getFilteredTasks(
+    StatusFilter filter,
+    Emitter<TasksState> emit,
+  ) async {
+    final getFiltered = filter == StatusFilter.pending
         ? _repository.getPendingTasks
-        : event.filter == StatusFilter.completed
+        : filter == StatusFilter.completed
             ? _repository.getCompletedTasks
             : _repository.getAllTasks;
     final filteredTasks = await getFiltered();
-    emit(state.copyWith(tasks: filteredTasks.map(Task.fromModel).toList()));
+    emit(
+      state.copyWith(
+        statusFilter: filter,
+        tasks: filteredTasks.map(Task.fromModel).toList(),
+      ),
+    );
   }
 }

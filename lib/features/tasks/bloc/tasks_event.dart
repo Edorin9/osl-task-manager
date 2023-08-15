@@ -4,4 +4,7 @@ part of 'tasks_bloc.dart';
 class TasksEvent with _$TasksEvent {
   const factory TasksEvent.pageLoaded() = PageLoaded;
   const factory TasksEvent.filterChanged(StatusFilter filter) = FilterChanged;
+  const factory TasksEvent.itemCheckToggled({
+    required Task task,
+  }) = ItemCheckToggled;
 }

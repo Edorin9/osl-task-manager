@@ -10,7 +10,7 @@ part 'task_model.g.dart';
 @freezed
 class TaskModel with _$TaskModel {
   const factory TaskModel({
-    required int id,
+    required int? id,
     required String title,
     required String description,
     required Status status,
@@ -33,7 +33,7 @@ class TaskModel with _$TaskModel {
       );
 
   TasksCompanion toTasksCompanion() => TasksCompanion(
-        id: drift.Value(id),
+        id: id != null ? drift.Value(id!) : const drift.Value.absent(),
         title: drift.Value(title),
         description: drift.Value(description),
         status: drift.Value(status.id),

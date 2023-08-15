@@ -18,43 +18,53 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() editToggled,
-    required TResult Function(Task task) saveInitiated,
-    required TResult Function(Task task) deleteInitiated,
+    required TResult Function(
+            String? title, String? description, DateTime? dueDate)
+        fieldsUpdated,
+    required TResult Function() editModeEntered,
+    required TResult Function() saveInitiated,
+    required TResult Function() deleteInitiated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? editToggled,
-    TResult? Function(Task task)? saveInitiated,
-    TResult? Function(Task task)? deleteInitiated,
+    TResult? Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult? Function()? editModeEntered,
+    TResult? Function()? saveInitiated,
+    TResult? Function()? deleteInitiated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? editToggled,
-    TResult Function(Task task)? saveInitiated,
-    TResult Function(Task task)? deleteInitiated,
+    TResult Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult Function()? editModeEntered,
+    TResult Function()? saveInitiated,
+    TResult Function()? deleteInitiated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditToggled value) editToggled,
+    required TResult Function(FieldsUpdated value) fieldsUpdated,
+    required TResult Function(EditModeEntered value) editModeEntered,
     required TResult Function(SaveInitiated value) saveInitiated,
     required TResult Function(DeleteInitiated value) deleteInitiated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditToggled value)? editToggled,
+    TResult? Function(FieldsUpdated value)? fieldsUpdated,
+    TResult? Function(EditModeEntered value)? editModeEntered,
     TResult? Function(SaveInitiated value)? saveInitiated,
     TResult? Function(DeleteInitiated value)? deleteInitiated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditToggled value)? editToggled,
+    TResult Function(FieldsUpdated value)? fieldsUpdated,
+    TResult Function(EditModeEntered value)? editModeEntered,
     TResult Function(SaveInitiated value)? saveInitiated,
     TResult Function(DeleteInitiated value)? deleteInitiated,
     required TResult orElse(),
@@ -81,35 +91,206 @@ class _$DetailsEventCopyWithImpl<$Res, $Val extends DetailsEvent>
 }
 
 /// @nodoc
-abstract class _$$EditToggledCopyWith<$Res> {
-  factory _$$EditToggledCopyWith(
-          _$EditToggled value, $Res Function(_$EditToggled) then) =
-      __$$EditToggledCopyWithImpl<$Res>;
+abstract class _$$FieldsUpdatedCopyWith<$Res> {
+  factory _$$FieldsUpdatedCopyWith(
+          _$FieldsUpdated value, $Res Function(_$FieldsUpdated) then) =
+      __$$FieldsUpdatedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? title, String? description, DateTime? dueDate});
 }
 
 /// @nodoc
-class __$$EditToggledCopyWithImpl<$Res>
-    extends _$DetailsEventCopyWithImpl<$Res, _$EditToggled>
-    implements _$$EditToggledCopyWith<$Res> {
-  __$$EditToggledCopyWithImpl(
-      _$EditToggled _value, $Res Function(_$EditToggled) _then)
+class __$$FieldsUpdatedCopyWithImpl<$Res>
+    extends _$DetailsEventCopyWithImpl<$Res, _$FieldsUpdated>
+    implements _$$FieldsUpdatedCopyWith<$Res> {
+  __$$FieldsUpdatedCopyWithImpl(
+      _$FieldsUpdated _value, $Res Function(_$FieldsUpdated) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? dueDate = freezed,
+  }) {
+    return _then(_$FieldsUpdated(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dueDate: freezed == dueDate
+          ? _value.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$EditToggled implements EditToggled {
-  const _$EditToggled();
+class _$FieldsUpdated implements FieldsUpdated {
+  const _$FieldsUpdated({this.title, this.description, this.dueDate});
+
+  @override
+  final String? title;
+  @override
+  final String? description;
+  @override
+  final DateTime? dueDate;
 
   @override
   String toString() {
-    return 'DetailsEvent.editToggled()';
+    return 'DetailsEvent.fieldsUpdated(title: $title, description: $description, dueDate: $dueDate)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EditToggled);
+        (other.runtimeType == runtimeType &&
+            other is _$FieldsUpdated &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, title, description, dueDate);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FieldsUpdatedCopyWith<_$FieldsUpdated> get copyWith =>
+      __$$FieldsUpdatedCopyWithImpl<_$FieldsUpdated>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String? title, String? description, DateTime? dueDate)
+        fieldsUpdated,
+    required TResult Function() editModeEntered,
+    required TResult Function() saveInitiated,
+    required TResult Function() deleteInitiated,
+  }) {
+    return fieldsUpdated(title, description, dueDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult? Function()? editModeEntered,
+    TResult? Function()? saveInitiated,
+    TResult? Function()? deleteInitiated,
+  }) {
+    return fieldsUpdated?.call(title, description, dueDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult Function()? editModeEntered,
+    TResult Function()? saveInitiated,
+    TResult Function()? deleteInitiated,
+    required TResult orElse(),
+  }) {
+    if (fieldsUpdated != null) {
+      return fieldsUpdated(title, description, dueDate);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FieldsUpdated value) fieldsUpdated,
+    required TResult Function(EditModeEntered value) editModeEntered,
+    required TResult Function(SaveInitiated value) saveInitiated,
+    required TResult Function(DeleteInitiated value) deleteInitiated,
+  }) {
+    return fieldsUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FieldsUpdated value)? fieldsUpdated,
+    TResult? Function(EditModeEntered value)? editModeEntered,
+    TResult? Function(SaveInitiated value)? saveInitiated,
+    TResult? Function(DeleteInitiated value)? deleteInitiated,
+  }) {
+    return fieldsUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FieldsUpdated value)? fieldsUpdated,
+    TResult Function(EditModeEntered value)? editModeEntered,
+    TResult Function(SaveInitiated value)? saveInitiated,
+    TResult Function(DeleteInitiated value)? deleteInitiated,
+    required TResult orElse(),
+  }) {
+    if (fieldsUpdated != null) {
+      return fieldsUpdated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FieldsUpdated implements DetailsEvent {
+  const factory FieldsUpdated(
+      {final String? title,
+      final String? description,
+      final DateTime? dueDate}) = _$FieldsUpdated;
+
+  String? get title;
+  String? get description;
+  DateTime? get dueDate;
+  @JsonKey(ignore: true)
+  _$$FieldsUpdatedCopyWith<_$FieldsUpdated> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EditModeEnteredCopyWith<$Res> {
+  factory _$$EditModeEnteredCopyWith(
+          _$EditModeEntered value, $Res Function(_$EditModeEntered) then) =
+      __$$EditModeEnteredCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EditModeEnteredCopyWithImpl<$Res>
+    extends _$DetailsEventCopyWithImpl<$Res, _$EditModeEntered>
+    implements _$$EditModeEnteredCopyWith<$Res> {
+  __$$EditModeEnteredCopyWithImpl(
+      _$EditModeEntered _value, $Res Function(_$EditModeEntered) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EditModeEntered implements EditModeEntered {
+  const _$EditModeEntered();
+
+  @override
+  String toString() {
+    return 'DetailsEvent.editModeEntered()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EditModeEntered);
   }
 
   @override
@@ -118,33 +299,40 @@ class _$EditToggled implements EditToggled {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() editToggled,
-    required TResult Function(Task task) saveInitiated,
-    required TResult Function(Task task) deleteInitiated,
+    required TResult Function(
+            String? title, String? description, DateTime? dueDate)
+        fieldsUpdated,
+    required TResult Function() editModeEntered,
+    required TResult Function() saveInitiated,
+    required TResult Function() deleteInitiated,
   }) {
-    return editToggled();
+    return editModeEntered();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? editToggled,
-    TResult? Function(Task task)? saveInitiated,
-    TResult? Function(Task task)? deleteInitiated,
+    TResult? Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult? Function()? editModeEntered,
+    TResult? Function()? saveInitiated,
+    TResult? Function()? deleteInitiated,
   }) {
-    return editToggled?.call();
+    return editModeEntered?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? editToggled,
-    TResult Function(Task task)? saveInitiated,
-    TResult Function(Task task)? deleteInitiated,
+    TResult Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult Function()? editModeEntered,
+    TResult Function()? saveInitiated,
+    TResult Function()? deleteInitiated,
     required TResult orElse(),
   }) {
-    if (editToggled != null) {
-      return editToggled();
+    if (editModeEntered != null) {
+      return editModeEntered();
     }
     return orElse();
   }
@@ -152,40 +340,43 @@ class _$EditToggled implements EditToggled {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditToggled value) editToggled,
+    required TResult Function(FieldsUpdated value) fieldsUpdated,
+    required TResult Function(EditModeEntered value) editModeEntered,
     required TResult Function(SaveInitiated value) saveInitiated,
     required TResult Function(DeleteInitiated value) deleteInitiated,
   }) {
-    return editToggled(this);
+    return editModeEntered(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditToggled value)? editToggled,
+    TResult? Function(FieldsUpdated value)? fieldsUpdated,
+    TResult? Function(EditModeEntered value)? editModeEntered,
     TResult? Function(SaveInitiated value)? saveInitiated,
     TResult? Function(DeleteInitiated value)? deleteInitiated,
   }) {
-    return editToggled?.call(this);
+    return editModeEntered?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditToggled value)? editToggled,
+    TResult Function(FieldsUpdated value)? fieldsUpdated,
+    TResult Function(EditModeEntered value)? editModeEntered,
     TResult Function(SaveInitiated value)? saveInitiated,
     TResult Function(DeleteInitiated value)? deleteInitiated,
     required TResult orElse(),
   }) {
-    if (editToggled != null) {
-      return editToggled(this);
+    if (editModeEntered != null) {
+      return editModeEntered(this);
     }
     return orElse();
   }
 }
 
-abstract class EditToggled implements DetailsEvent {
-  const factory EditToggled() = _$EditToggled;
+abstract class EditModeEntered implements DetailsEvent {
+  const factory EditModeEntered() = _$EditModeEntered;
 }
 
 /// @nodoc
@@ -193,10 +384,6 @@ abstract class _$$SaveInitiatedCopyWith<$Res> {
   factory _$$SaveInitiatedCopyWith(
           _$SaveInitiated value, $Res Function(_$SaveInitiated) then) =
       __$$SaveInitiatedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Task task});
-
-  $TaskCopyWith<$Res> get task;
 }
 
 /// @nodoc
@@ -206,89 +393,64 @@ class __$$SaveInitiatedCopyWithImpl<$Res>
   __$$SaveInitiatedCopyWithImpl(
       _$SaveInitiated _value, $Res Function(_$SaveInitiated) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? task = null,
-  }) {
-    return _then(_$SaveInitiated(
-      null == task
-          ? _value.task
-          : task // ignore: cast_nullable_to_non_nullable
-              as Task,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TaskCopyWith<$Res> get task {
-    return $TaskCopyWith<$Res>(_value.task, (value) {
-      return _then(_value.copyWith(task: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$SaveInitiated implements SaveInitiated {
-  const _$SaveInitiated(this.task);
-
-  @override
-  final Task task;
+  const _$SaveInitiated();
 
   @override
   String toString() {
-    return 'DetailsEvent.saveInitiated(task: $task)';
+    return 'DetailsEvent.saveInitiated()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SaveInitiated &&
-            (identical(other.task, task) || other.task == task));
+        (other.runtimeType == runtimeType && other is _$SaveInitiated);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, task);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SaveInitiatedCopyWith<_$SaveInitiated> get copyWith =>
-      __$$SaveInitiatedCopyWithImpl<_$SaveInitiated>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() editToggled,
-    required TResult Function(Task task) saveInitiated,
-    required TResult Function(Task task) deleteInitiated,
+    required TResult Function(
+            String? title, String? description, DateTime? dueDate)
+        fieldsUpdated,
+    required TResult Function() editModeEntered,
+    required TResult Function() saveInitiated,
+    required TResult Function() deleteInitiated,
   }) {
-    return saveInitiated(task);
+    return saveInitiated();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? editToggled,
-    TResult? Function(Task task)? saveInitiated,
-    TResult? Function(Task task)? deleteInitiated,
+    TResult? Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult? Function()? editModeEntered,
+    TResult? Function()? saveInitiated,
+    TResult? Function()? deleteInitiated,
   }) {
-    return saveInitiated?.call(task);
+    return saveInitiated?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? editToggled,
-    TResult Function(Task task)? saveInitiated,
-    TResult Function(Task task)? deleteInitiated,
+    TResult Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult Function()? editModeEntered,
+    TResult Function()? saveInitiated,
+    TResult Function()? deleteInitiated,
     required TResult orElse(),
   }) {
     if (saveInitiated != null) {
-      return saveInitiated(task);
+      return saveInitiated();
     }
     return orElse();
   }
@@ -296,7 +458,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditToggled value) editToggled,
+    required TResult Function(FieldsUpdated value) fieldsUpdated,
+    required TResult Function(EditModeEntered value) editModeEntered,
     required TResult Function(SaveInitiated value) saveInitiated,
     required TResult Function(DeleteInitiated value) deleteInitiated,
   }) {
@@ -306,7 +469,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditToggled value)? editToggled,
+    TResult? Function(FieldsUpdated value)? fieldsUpdated,
+    TResult? Function(EditModeEntered value)? editModeEntered,
     TResult? Function(SaveInitiated value)? saveInitiated,
     TResult? Function(DeleteInitiated value)? deleteInitiated,
   }) {
@@ -316,7 +480,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditToggled value)? editToggled,
+    TResult Function(FieldsUpdated value)? fieldsUpdated,
+    TResult Function(EditModeEntered value)? editModeEntered,
     TResult Function(SaveInitiated value)? saveInitiated,
     TResult Function(DeleteInitiated value)? deleteInitiated,
     required TResult orElse(),
@@ -329,12 +494,7 @@ class _$SaveInitiated implements SaveInitiated {
 }
 
 abstract class SaveInitiated implements DetailsEvent {
-  const factory SaveInitiated(final Task task) = _$SaveInitiated;
-
-  Task get task;
-  @JsonKey(ignore: true)
-  _$$SaveInitiatedCopyWith<_$SaveInitiated> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory SaveInitiated() = _$SaveInitiated;
 }
 
 /// @nodoc
@@ -342,10 +502,6 @@ abstract class _$$DeleteInitiatedCopyWith<$Res> {
   factory _$$DeleteInitiatedCopyWith(
           _$DeleteInitiated value, $Res Function(_$DeleteInitiated) then) =
       __$$DeleteInitiatedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Task task});
-
-  $TaskCopyWith<$Res> get task;
 }
 
 /// @nodoc
@@ -355,89 +511,64 @@ class __$$DeleteInitiatedCopyWithImpl<$Res>
   __$$DeleteInitiatedCopyWithImpl(
       _$DeleteInitiated _value, $Res Function(_$DeleteInitiated) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? task = null,
-  }) {
-    return _then(_$DeleteInitiated(
-      null == task
-          ? _value.task
-          : task // ignore: cast_nullable_to_non_nullable
-              as Task,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TaskCopyWith<$Res> get task {
-    return $TaskCopyWith<$Res>(_value.task, (value) {
-      return _then(_value.copyWith(task: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$DeleteInitiated implements DeleteInitiated {
-  const _$DeleteInitiated(this.task);
-
-  @override
-  final Task task;
+  const _$DeleteInitiated();
 
   @override
   String toString() {
-    return 'DetailsEvent.deleteInitiated(task: $task)';
+    return 'DetailsEvent.deleteInitiated()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DeleteInitiated &&
-            (identical(other.task, task) || other.task == task));
+        (other.runtimeType == runtimeType && other is _$DeleteInitiated);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, task);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DeleteInitiatedCopyWith<_$DeleteInitiated> get copyWith =>
-      __$$DeleteInitiatedCopyWithImpl<_$DeleteInitiated>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() editToggled,
-    required TResult Function(Task task) saveInitiated,
-    required TResult Function(Task task) deleteInitiated,
+    required TResult Function(
+            String? title, String? description, DateTime? dueDate)
+        fieldsUpdated,
+    required TResult Function() editModeEntered,
+    required TResult Function() saveInitiated,
+    required TResult Function() deleteInitiated,
   }) {
-    return deleteInitiated(task);
+    return deleteInitiated();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? editToggled,
-    TResult? Function(Task task)? saveInitiated,
-    TResult? Function(Task task)? deleteInitiated,
+    TResult? Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult? Function()? editModeEntered,
+    TResult? Function()? saveInitiated,
+    TResult? Function()? deleteInitiated,
   }) {
-    return deleteInitiated?.call(task);
+    return deleteInitiated?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? editToggled,
-    TResult Function(Task task)? saveInitiated,
-    TResult Function(Task task)? deleteInitiated,
+    TResult Function(String? title, String? description, DateTime? dueDate)?
+        fieldsUpdated,
+    TResult Function()? editModeEntered,
+    TResult Function()? saveInitiated,
+    TResult Function()? deleteInitiated,
     required TResult orElse(),
   }) {
     if (deleteInitiated != null) {
-      return deleteInitiated(task);
+      return deleteInitiated();
     }
     return orElse();
   }
@@ -445,7 +576,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditToggled value) editToggled,
+    required TResult Function(FieldsUpdated value) fieldsUpdated,
+    required TResult Function(EditModeEntered value) editModeEntered,
     required TResult Function(SaveInitiated value) saveInitiated,
     required TResult Function(DeleteInitiated value) deleteInitiated,
   }) {
@@ -455,7 +587,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditToggled value)? editToggled,
+    TResult? Function(FieldsUpdated value)? fieldsUpdated,
+    TResult? Function(EditModeEntered value)? editModeEntered,
     TResult? Function(SaveInitiated value)? saveInitiated,
     TResult? Function(DeleteInitiated value)? deleteInitiated,
   }) {
@@ -465,7 +598,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditToggled value)? editToggled,
+    TResult Function(FieldsUpdated value)? fieldsUpdated,
+    TResult Function(EditModeEntered value)? editModeEntered,
     TResult Function(SaveInitiated value)? saveInitiated,
     TResult Function(DeleteInitiated value)? deleteInitiated,
     required TResult orElse(),
@@ -478,12 +612,7 @@ class _$DeleteInitiated implements DeleteInitiated {
 }
 
 abstract class DeleteInitiated implements DetailsEvent {
-  const factory DeleteInitiated(final Task task) = _$DeleteInitiated;
-
-  Task get task;
-  @JsonKey(ignore: true)
-  _$$DeleteInitiatedCopyWith<_$DeleteInitiated> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory DeleteInitiated() = _$DeleteInitiated;
 }
 
 DetailsState _$DetailsStateFromJson(Map<String, dynamic> json) {
@@ -494,6 +623,9 @@ DetailsState _$DetailsStateFromJson(Map<String, dynamic> json) {
 mixin _$DetailsState {
   DetailsMode get mode => throw _privateConstructorUsedError;
   Task? get task => throw _privateConstructorUsedError;
+  String get titleField => throw _privateConstructorUsedError;
+  String get descriptionField => throw _privateConstructorUsedError;
+  DateTime? get dueDateField => throw _privateConstructorUsedError;
   MessageStatus get messageStatus => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
@@ -512,6 +644,9 @@ abstract class $DetailsStateCopyWith<$Res> {
   $Res call(
       {DetailsMode mode,
       Task? task,
+      String titleField,
+      String descriptionField,
+      DateTime? dueDateField,
       MessageStatus messageStatus,
       String? message});
 
@@ -533,6 +668,9 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
   $Res call({
     Object? mode = null,
     Object? task = freezed,
+    Object? titleField = null,
+    Object? descriptionField = null,
+    Object? dueDateField = freezed,
     Object? messageStatus = null,
     Object? message = freezed,
   }) {
@@ -545,6 +683,18 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task?,
+      titleField: null == titleField
+          ? _value.titleField
+          : titleField // ignore: cast_nullable_to_non_nullable
+              as String,
+      descriptionField: null == descriptionField
+          ? _value.descriptionField
+          : descriptionField // ignore: cast_nullable_to_non_nullable
+              as String,
+      dueDateField: freezed == dueDateField
+          ? _value.dueDateField
+          : dueDateField // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       messageStatus: null == messageStatus
           ? _value.messageStatus
           : messageStatus // ignore: cast_nullable_to_non_nullable
@@ -580,6 +730,9 @@ abstract class _$$_DetailsStateCopyWith<$Res>
   $Res call(
       {DetailsMode mode,
       Task? task,
+      String titleField,
+      String descriptionField,
+      DateTime? dueDateField,
       MessageStatus messageStatus,
       String? message});
 
@@ -600,6 +753,9 @@ class __$$_DetailsStateCopyWithImpl<$Res>
   $Res call({
     Object? mode = null,
     Object? task = freezed,
+    Object? titleField = null,
+    Object? descriptionField = null,
+    Object? dueDateField = freezed,
     Object? messageStatus = null,
     Object? message = freezed,
   }) {
@@ -612,6 +768,18 @@ class __$$_DetailsStateCopyWithImpl<$Res>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task?,
+      titleField: null == titleField
+          ? _value.titleField
+          : titleField // ignore: cast_nullable_to_non_nullable
+              as String,
+      descriptionField: null == descriptionField
+          ? _value.descriptionField
+          : descriptionField // ignore: cast_nullable_to_non_nullable
+              as String,
+      dueDateField: freezed == dueDateField
+          ? _value.dueDateField
+          : dueDateField // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       messageStatus: null == messageStatus
           ? _value.messageStatus
           : messageStatus // ignore: cast_nullable_to_non_nullable
@@ -630,6 +798,9 @@ class _$_DetailsState implements _DetailsState {
   const _$_DetailsState(
       {this.mode = DetailsMode.display,
       this.task = null,
+      this.titleField = '',
+      this.descriptionField = '',
+      this.dueDateField = null,
       this.messageStatus = MessageStatus.none,
       this.message = null});
 
@@ -644,6 +815,15 @@ class _$_DetailsState implements _DetailsState {
   final Task? task;
   @override
   @JsonKey()
+  final String titleField;
+  @override
+  @JsonKey()
+  final String descriptionField;
+  @override
+  @JsonKey()
+  final DateTime? dueDateField;
+  @override
+  @JsonKey()
   final MessageStatus messageStatus;
   @override
   @JsonKey()
@@ -651,7 +831,7 @@ class _$_DetailsState implements _DetailsState {
 
   @override
   String toString() {
-    return 'DetailsState(mode: $mode, task: $task, messageStatus: $messageStatus, message: $message)';
+    return 'DetailsState(mode: $mode, task: $task, titleField: $titleField, descriptionField: $descriptionField, dueDateField: $dueDateField, messageStatus: $messageStatus, message: $message)';
   }
 
   @override
@@ -661,6 +841,12 @@ class _$_DetailsState implements _DetailsState {
             other is _$_DetailsState &&
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.task, task) || other.task == task) &&
+            (identical(other.titleField, titleField) ||
+                other.titleField == titleField) &&
+            (identical(other.descriptionField, descriptionField) ||
+                other.descriptionField == descriptionField) &&
+            (identical(other.dueDateField, dueDateField) ||
+                other.dueDateField == dueDateField) &&
             (identical(other.messageStatus, messageStatus) ||
                 other.messageStatus == messageStatus) &&
             (identical(other.message, message) || other.message == message));
@@ -668,8 +854,8 @@ class _$_DetailsState implements _DetailsState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, mode, task, messageStatus, message);
+  int get hashCode => Object.hash(runtimeType, mode, task, titleField,
+      descriptionField, dueDateField, messageStatus, message);
 
   @JsonKey(ignore: true)
   @override
@@ -689,6 +875,9 @@ abstract class _DetailsState implements DetailsState {
   const factory _DetailsState(
       {final DetailsMode mode,
       final Task? task,
+      final String titleField,
+      final String descriptionField,
+      final DateTime? dueDateField,
       final MessageStatus messageStatus,
       final String? message}) = _$_DetailsState;
 
@@ -699,6 +888,12 @@ abstract class _DetailsState implements DetailsState {
   DetailsMode get mode;
   @override
   Task? get task;
+  @override
+  String get titleField;
+  @override
+  String get descriptionField;
+  @override
+  DateTime? get dueDateField;
   @override
   MessageStatus get messageStatus;
   @override

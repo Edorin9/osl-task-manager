@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 part 'tables.g.dart';
 
@@ -23,10 +28,10 @@ abstract class TasksView extends View {
   views: [TasksView],
 )
 class Database extends _$Database {
-  Database(QueryExecutor e) : super(e);
+  Database(QueryExecutor e) : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 
   Future<int> createOrUpdateTask(TasksCompanion entry) =>
       into(tasks).insertOnConflictUpdate(entry);
@@ -37,4 +42,15 @@ class Database extends _$Database {
       (select(tasks)..where((t) => t.status.equals(0))).get();
   Future<List<Task>> get readCompletedTasks =>
       (select(tasks)..where((t) => t.status.equals(1))).get();
+}
+
+LazyDatabase _openConnection() {
+  // the LazyDatabase util lets us find the right location for the file async.
+  return LazyDatabase(() async {
+    // put the database file, called db.sqlite here, into the documents folder
+    // for your app.
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(path.join(dbFolder.path, 'db.sqlite'));
+    return NativeDatabase.createInBackground(file);
+  });
 }

@@ -7,7 +7,7 @@ part of 'task.dart';
 // **************************************************************************
 
 _$_Task _$$_TaskFromJson(Map<String, dynamic> json) => _$_Task(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       title: json['title'] as String,
       description: json['description'] as String,
       status: $enumDecode(_$StatusEnumMap, json['status']),
