@@ -14,11 +14,11 @@ dependencies:
   hydrated_bloc: ^9.1.2
   json_annotation: ^4.8.1
   path_provider: ^2.1.0
+  sqlite3_flutter_libs: ^0.5.15
 
 dev_dependencies:
   bloc_test: ^9.1.4
   build_runner: ^2.4.6
-  flutter_lints: ^2.0.0
   freezed: ^2.4.2
   json_serializable: ^6.7.1
   mocktail: ^1.0.0
