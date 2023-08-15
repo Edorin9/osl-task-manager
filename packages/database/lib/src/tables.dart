@@ -27,4 +27,12 @@ class Database extends _$Database {
 
   @override
   int get schemaVersion => 2;
+
+  Future<int> createOrUpdateTask(TasksCompanion entry) =>
+      into(tasks).insertOnConflictUpdate(entry);
+  Future<List<Task>> get readAllTasks => select(tasks).get();
+  Future<List<Task>> get readPendingTasks =>
+      (select(tasks)..where((t) => t.status.equals(0))).get();
+  Future<List<Task>> get readCompletedTasks =>
+      (select(tasks)..where((t) => t.status.equals(1))).get();
 }
