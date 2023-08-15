@@ -7,6 +7,7 @@ part 'task.g.dart';
 @freezed
 class Task with _$Task {
   const factory Task({
+    required int id,
     required String title,
     required String description,
     required Status status,
@@ -19,10 +20,20 @@ class Task with _$Task {
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
   factory Task.fromModel(TaskModel model) => Task(
+        id: model.id,
         title: model.title,
         description: model.description,
         status: model.status,
         dateCreated: model.dateCreated,
         dueDate: model.dueDate,
+      );
+
+  TaskModel toTaskModel() => TaskModel(
+        id: id,
+        title: title,
+        description: description,
+        status: status,
+        dateCreated: dateCreated,
+        dueDate: dueDate,
       );
 }

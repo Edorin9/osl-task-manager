@@ -1,4 +1,5 @@
 import 'package:database/database.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../enums/status.dart';
@@ -29,5 +30,14 @@ class TaskModel with _$TaskModel {
         status: task.status.statusType,
         dateCreated: task.dateCreated,
         dueDate: task.dueDate,
+      );
+
+  TasksCompanion toTasksCompanion() => TasksCompanion(
+        id: drift.Value(id),
+        title: drift.Value(title),
+        description: drift.Value(description),
+        status: drift.Value(status.id),
+        dateCreated: drift.Value(dateCreated),
+        dueDate: drift.Value(dueDate),
       );
 }
