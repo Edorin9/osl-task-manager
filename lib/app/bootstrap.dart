@@ -16,7 +16,10 @@ Future<void> bootstrap() async {
   Bloc.observer = AppBlocObserver();
 
   runZonedGuarded(
-    () => runApp(const App()),
+    () {
+      WidgetsFlutterBinding.ensureInitialized();
+      runApp(const App());
+    },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
