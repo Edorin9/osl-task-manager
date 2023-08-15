@@ -1,7 +1,5 @@
 library repository;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/enums/status.dart';
+export 'src/models/task_model.dart';
+export 'src/repository.dart';

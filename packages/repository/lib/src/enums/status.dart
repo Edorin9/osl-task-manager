@@ -13,3 +13,7 @@ extension StatusX on Status {
     }
   }
 }
+
+extension IntStatusX on int {
+  Status get statusType => this == 0 ? Status.pending : Status.completed;
+}
