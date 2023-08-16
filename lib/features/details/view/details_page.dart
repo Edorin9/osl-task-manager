@@ -262,17 +262,19 @@ class _TitleLabel extends StatelessWidget {
       builder: (context, state) {
         return state.mode == DetailsMode.display
             ? Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                child: Text(
-                  state.task?.title ?? '',
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: const TextStyle(
-                    height: 1.3,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 24,
-                    color: Color(0xff000000),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                child: Hero(
+                  tag: 'title ${state.task?.id}',
+                  child: Text(
+                    state.task?.title ?? '',
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: const TextStyle(
+                      height: 1.3,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Color(0xff000000),
+                    ),
                   ),
                 ),
               )
@@ -292,7 +294,7 @@ class _DateCreatedLabel extends StatelessWidget {
       builder: (context, state) {
         return state.mode == DetailsMode.display
             ? Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
+                padding: const EdgeInsets.fromLTRB(16, 4, 0, 8),
                 child: Text(
                   state.task?.dateCreated.displayFormat ?? '???',
                   textAlign: TextAlign.start,

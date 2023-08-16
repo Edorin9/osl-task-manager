@@ -33,6 +33,39 @@ class Database extends _$Database {
   @override
   int get schemaVersion => 1;
 
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (m) async {
+        await m.createAll();
+
+        await batch((b) {
+          b.insertAll(tasks, [
+            TasksCompanion.insert(
+              title: 'Write database models',
+              description:
+                  'Make the models directory under src and write models in their own separate file.',
+              dateCreated: DateTime.now(),
+              dueDate: DateTime.now().add(Duration(days: 3)),
+            ),
+            TasksCompanion.insert(
+              title: 'Test BLoCs in Authentication module',
+              description: '- Login BLoC\n- Register BLoC\n- GoogleSignIn BLoC',
+              dateCreated: DateTime.now(),
+              dueDate: DateTime.now().add(Duration(days: 8)),
+            ),
+            TasksCompanion.insert(
+              title: 'Create a new branch for the scheduling feature',
+              description: 'Write calendar sub-tasks for this epic.',
+              dateCreated: DateTime.now(),
+              dueDate: DateTime.now().add(Duration(days: 8)),
+            ),
+          ]);
+        });
+      },
+    );
+  }
+
   Future<int> createOrUpdateTask(TasksCompanion entry) =>
       into(tasks).insertOnConflictUpdate(entry);
   Future<int> deleteTask(TasksCompanion task) =>

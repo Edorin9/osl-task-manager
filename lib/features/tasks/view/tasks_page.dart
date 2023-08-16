@@ -203,13 +203,29 @@ class _TaskItemButton extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      task.title,
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    Hero(
+                      tag: 'title ${task.id}',
+                      flightShuttleBuilder: (
+                        BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext,
+                      ) =>
+                          DefaultTextStyle(
+                        style: DefaultTextStyle.of(toHeroContext).style,
+                        child: toHeroContext.widget,
                       ),
-                      overflow: TextOverflow.fade,
+                      child: Text(
+                        task.title,
+                        style: const TextStyle(
+                          height: 1.3,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff000000),
+                        ),
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
