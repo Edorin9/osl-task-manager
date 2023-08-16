@@ -97,6 +97,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           shouldPopPage: state.mode == DetailsMode.create,
         ),
       );
+      await _resetMessagingState(emit);
     } catch (e) {
       emit(
         state.copyWith(
@@ -104,6 +105,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           message: 'Task save failed',
         ),
       );
+      await _resetMessagingState(emit);
     }
   }
 
@@ -127,6 +129,16 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           message: 'Task delete failed',
         ),
       );
+      await _resetMessagingState(emit);
     }
+  }
+
+  Future<void> _resetMessagingState(Emitter<DetailsState> emit) async {
+    emit(
+      state.copyWith(
+        messageStatus: MessageStatus.none,
+        message: null,
+      ),
+    );
   }
 }
