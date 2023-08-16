@@ -42,7 +42,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
             : state.statusField,
         titleField: event.title ?? state.titleField,
         descriptionField: event.description ?? state.descriptionField,
-        dueDateField: event.dueDate ?? DateTime.now(),
+        dueDateField: event.dueDate ?? state.dueDateField,
       ),
     );
   }
@@ -57,7 +57,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         statusField: state.task?.status ?? state.statusField,
         titleField: state.task?.title ?? state.titleField,
         descriptionField: state.task?.description ?? state.descriptionField,
-        dueDateField: state.task?.dueDate ?? DateTime.now(),
+        dueDateField: state.task?.dueDate ?? state.dueDateField,
       ),
     );
   }
@@ -83,7 +83,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         status:
             state.mode == DetailsMode.edit ? state.statusField : Status.pending,
         dateCreated: DateTime.now(),
-        dueDate: state.dueDateField ?? DateTime.now(),
+        dueDate: state.dueDateField ?? state.task?.dueDate ?? DateTime.now(),
       );
       final id = await _repository.addOrEditTask(task.toTaskModel());
       debugPrint('id: $id');

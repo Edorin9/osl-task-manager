@@ -233,9 +233,8 @@ class _TitleField extends HookWidget {
                     maxLines: null,
                     style: const TextStyle(
                       height: 1.3,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
                       color: Color(0xff000000),
                     ),
                     decoration: const InputDecoration(
@@ -392,8 +391,13 @@ class _DueDatePicker extends StatelessWidget {
           onDateChanged: (date) => context.read<DetailsBloc>().add(
                 FieldsUpdated(dueDate: date),
               ),
-          initialDate: state.task?.dueDate ?? DateTime.now(),
-          firstDate: state.task?.dueDate ?? DateTime.now(),
+          initialDate: state.mode == DetailsMode.display ||
+                  state.mode == DetailsMode.edit
+              ? state.task?.dueDate ?? DateTime.now()
+              : DateTime.now(),
+          firstDate: state.mode == DetailsMode.display
+              ? state.task?.dueDate ?? DateTime.now()
+              : DateTime.now(),
           lastDate: state.mode == DetailsMode.display
               ? state.task?.dueDate ?? DateTime.now()
               : DateTime.now().add(const Duration(days: 364635)),
