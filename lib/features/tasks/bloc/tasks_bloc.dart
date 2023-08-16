@@ -24,8 +24,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     PageLoaded event,
     Emitter<TasksState> emit,
   ) async {
-    final allTasks = await _repository.getAllTasks();
-    emit(state.copyWith(tasks: allTasks.map(Task.fromModel).toList()));
+    await _getFilteredTasks(state.statusFilter, emit);
   }
 
   Future<void> _onFilterChanged(

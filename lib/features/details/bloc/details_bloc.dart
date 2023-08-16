@@ -35,6 +35,11 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   ) async {
     emit(
       state.copyWith(
+        statusField: event.isToggled ?? false
+            ? (state.statusField == Status.completed
+                ? Status.pending
+                : Status.completed)
+            : state.statusField,
         titleField: event.title ?? state.titleField,
         descriptionField: event.description ?? state.descriptionField,
         dueDateField: event.dueDate ?? DateTime.now(),
@@ -46,10 +51,10 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     EditModeEntered event,
     Emitter<DetailsState> emit,
   ) async {
-    // TODO
     emit(
       state.copyWith(
         mode: DetailsMode.edit,
+        statusField: state.task?.status ?? state.statusField,
         titleField: state.task?.title ?? state.titleField,
         descriptionField: state.task?.description ?? state.descriptionField,
         dueDateField: state.task?.dueDate ?? DateTime.now(),
@@ -65,7 +70,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
       emit(
         state.copyWith(
           messageStatus: MessageStatus.failure,
-          message: 'All fields are required.',
+          message: 'All fields are required',
         ),
       );
       return;
@@ -75,7 +80,8 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         id: state.task?.id,
         title: state.titleField,
         description: state.descriptionField,
-        status: state.task?.status ?? Status.pending,
+        status:
+            state.mode == DetailsMode.edit ? state.statusField : Status.pending,
         dateCreated: DateTime.now(),
         dueDate: state.dueDateField ?? DateTime.now(),
       );
@@ -83,8 +89,12 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
       debugPrint('id: $id');
       emit(
         state.copyWith(
+          mode:
+              state.mode == DetailsMode.edit ? DetailsMode.display : state.mode,
+          task: task,
           messageStatus: MessageStatus.success,
           message: 'Task saved successfully',
+          shouldPopPage: state.mode == DetailsMode.create,
         ),
       );
     } catch (e) {
@@ -107,6 +117,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         state.copyWith(
           messageStatus: MessageStatus.success,
           message: 'Task successfully deleted',
+          shouldPopPage: true,
         ),
       );
     } catch (e) {

@@ -81,7 +81,7 @@ class _Header extends StatelessWidget {
                 child: BlocBuilder<TasksBloc, TasksState>(
                   builder: (context, state) {
                     return Text(
-                      '${state.tasks.length} tasks ${state.statusFilter == StatusFilter.completed ? 'completed' : state.statusFilter == StatusFilter.pending ? 'left to be done' : 'in total'}',
+                      '${state.tasks.length} task${state.tasks.length > 1 ? 's' : ''} ${state.statusFilter == StatusFilter.completed ? 'completed' : state.statusFilter == StatusFilter.pending ? 'left to be done' : 'in total'}',
                       textAlign: TextAlign.start,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
@@ -104,7 +104,10 @@ class _Header extends StatelessWidget {
                     .map(
                       (status) => DropdownMenuItem<StatusFilter>(
                         value: status,
-                        child: Text(status.name.capitalize()),
+                        child: Text(
+                          status.name.capitalize(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     )
                     .toList(),
@@ -112,6 +115,7 @@ class _Header extends StatelessWidget {
                       FilterChanged(value ?? state.statusFilter),
                     ),
                 isDense: true,
+                focusColor: Colors.transparent,
                 underline: Container(
                   decoration: const BoxDecoration(
                     border: Border(
@@ -206,8 +210,8 @@ class _TaskItemButton extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.fade,
-                      maxLines: 1,
                     ),
+                    const SizedBox(height: 2),
                     Text(
                       task.description,
                       maxLines: 1,

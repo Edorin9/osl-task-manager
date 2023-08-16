@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:repository/repository.dart';
 
+import '../../../util/extensions.dart';
 import '../../tasks/models/task.dart';
 import '../bloc/details_bloc.dart';
 import '../enums/details_mode.dart';
+import '../enums/message_status.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -33,107 +35,174 @@ class _TasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // view layout
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                BlocBuilder<DetailsBloc, DetailsState>(
-                  buildWhen: (prev, curr) => prev.mode != curr.mode,
-                  builder: (context, state) {
-                    return IconButton(
-                      icon: Icon(
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<DetailsBloc, DetailsState>(
+          listenWhen: (prev, curr) =>
+              prev.messageStatus != curr.messageStatus &&
+              curr.messageStatus != MessageStatus.none,
+          listener: (context, state) {
+            final snackBar = SnackBar(
+              content: Text(state.message ?? ''),
+              backgroundColor: state.messageStatus.color,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+        ),
+        BlocListener<DetailsBloc, DetailsState>(
+          listenWhen: (prev, curr) => curr.shouldPopPage == true,
+          listener: (context, state) => Navigator.pop(context),
+        ),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  BlocBuilder<DetailsBloc, DetailsState>(
+                    buildWhen: (prev, curr) => prev.mode != curr.mode,
+                    builder: (context, state) {
+                      return IconButton(
+                        icon: Icon(
+                          state.mode == DetailsMode.create
+                              ? Icons.close
+                              : Icons.arrow_back,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        iconSize: 24,
+                      );
+                    },
+                  ),
+                  BlocBuilder<DetailsBloc, DetailsState>(
+                    buildWhen: (prev, curr) => prev.mode != curr.mode,
+                    builder: (context, state) {
+                      return Text(
                         state.mode == DetailsMode.create
-                            ? Icons.close
-                            : Icons.arrow_back,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      iconSize: 24,
-                    );
-                  },
-                ),
-                BlocBuilder<DetailsBloc, DetailsState>(
-                  buildWhen: (prev, curr) => prev.mode != curr.mode,
-                  builder: (context, state) {
-                    return Text(
-                      state.mode == DetailsMode.create
-                          ? 'Create'
-                          : state.mode == DetailsMode.edit
-                              ? 'Edit'
-                              : '',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 16,
-                        color: Color(0xff000000),
-                      ),
-                    );
-                  },
-                ),
-                const Spacer(),
-                BlocBuilder<DetailsBloc, DetailsState>(
-                  buildWhen: (prev, curr) => prev.mode != curr.mode,
-                  builder: (context, state) {
-                    return state.mode == DetailsMode.display
-                        ? IconButton(
-                            onPressed: () => context
-                                .read<DetailsBloc>()
-                                .add(const DeleteInitiated()),
-                            icon: const Icon(Icons.delete),
-                            iconSize: 24,
-                          )
-                        : const SizedBox();
-                  },
-                ),
-                BlocBuilder<DetailsBloc, DetailsState>(
-                  buildWhen: (prev, curr) => prev.mode != curr.mode,
-                  builder: (context, state) {
-                    return state.mode == DetailsMode.display
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.edit),
-                            iconSize: 24,
-                          )
-                        : const SizedBox();
-                  },
-                ),
-                BlocBuilder<DetailsBloc, DetailsState>(
-                  buildWhen: (prev, curr) => prev.mode != curr.mode,
-                  builder: (context, state) {
-                    return state.mode == DetailsMode.create ||
-                            state.mode == DetailsMode.edit
-                        ? IconButton(
-                            onPressed: () => context.read<DetailsBloc>().add(
-                                  const SaveInitiated(),
-                                ),
-                            icon: const Icon(Icons.save),
-                            iconSize: 24,
-                          )
-                        : const SizedBox();
-                  },
-                ),
-              ],
-            ),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _TitleField(),
-                    _TitleLabel(),
-                    _DateCreatedLabel(),
-                    _DescriptionLabelField(),
-                    _DueDateLabel(),
-                    _DueDatePicker(),
-                  ],
-                ),
+                            ? 'Create'
+                            : state.mode == DetailsMode.edit
+                                ? 'Edit'
+                                : '',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16,
+                          color: Color(0xff000000),
+                        ),
+                      );
+                    },
+                  ),
+                  const Spacer(),
+                  BlocBuilder<DetailsBloc, DetailsState>(
+                    buildWhen: (prev, curr) => prev.mode != curr.mode,
+                    builder: (context, state) {
+                      return state.mode == DetailsMode.display
+                          ? IconButton(
+                              onPressed: () => context
+                                  .read<DetailsBloc>()
+                                  .add(const DeleteInitiated()),
+                              icon: const Icon(Icons.delete),
+                              iconSize: 24,
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+                  BlocBuilder<DetailsBloc, DetailsState>(
+                    buildWhen: (prev, curr) => prev.mode != curr.mode,
+                    builder: (context, state) {
+                      return state.mode == DetailsMode.display
+                          ? IconButton(
+                              onPressed: () => context.read<DetailsBloc>().add(
+                                    const EditModeEntered(),
+                                  ),
+                              icon: const Icon(Icons.edit),
+                              iconSize: 24,
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+                  BlocBuilder<DetailsBloc, DetailsState>(
+                    buildWhen: (prev, curr) => prev.mode != curr.mode,
+                    builder: (context, state) {
+                      return state.mode == DetailsMode.create ||
+                              state.mode == DetailsMode.edit
+                          ? IconButton(
+                              onPressed: () => context.read<DetailsBloc>().add(
+                                    const SaveInitiated(),
+                                  ),
+                              icon: const Icon(Icons.save),
+                              iconSize: 24,
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+                ],
               ),
-            )
-          ],
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          _TitleField(),
+                          _StatusToggle(),
+                        ],
+                      ),
+                      _TitleLabel(),
+                      _DateCreatedLabel(),
+                      _DescriptionLabelField(),
+                      _DueDateLabel(),
+                      _DueDatePicker(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _StatusToggle extends StatelessWidget {
+  const _StatusToggle();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DetailsBloc, DetailsState>(
+      buildWhen: (prev, curr) => prev.mode != curr.mode,
+      builder: (context, state) {
+        return state.mode == DetailsMode.edit
+            ? IconButton(
+                onPressed: () => context.read<DetailsBloc>().add(
+                      const FieldsUpdated(
+                        isToggled: true,
+                      ),
+                    ),
+                padding: const EdgeInsets.only(
+                  right: 16,
+                  top: 8,
+                ),
+                splashRadius: 1,
+                icon: BlocBuilder<DetailsBloc, DetailsState>(
+                  buildWhen: (prev, curr) =>
+                      prev.statusField != curr.statusField,
+                  builder: (context, state) {
+                    return Icon(
+                      state.statusField == Status.completed
+                          ? Icons.check_circle
+                          : Icons.circle_outlined,
+                      color: Colors.black,
+                    );
+                  },
+                ),
+                iconSize: 40,
+              )
+            : const SizedBox();
+      },
     );
   }
 }
@@ -145,36 +214,40 @@ class _TitleField extends HookWidget {
   Widget build(BuildContext context) {
     final titleController = useTextEditingController(text: '');
 
-    return BlocBuilder<DetailsBloc, DetailsState>(
-      buildWhen: (prev, curr) => prev.mode != curr.mode,
-      builder: (context, state) {
-        return state.mode == DetailsMode.create ||
-                state.mode == DetailsMode.edit
-            ? Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                child: TextField(
-                  onChanged: (text) => context.read<DetailsBloc>().add(
-                        FieldsUpdated(title: text),
-                      ),
-                  controller: titleController,
-                  cursorColor: Colors.black,
-                  maxLines: null,
-                  style: const TextStyle(
-                    height: 1.3,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 24,
-                    color: Color(0xff000000),
+    return Flexible(
+      child: BlocBuilder<DetailsBloc, DetailsState>(
+        buildWhen: (prev, curr) => prev.mode != curr.mode,
+        builder: (context, state) {
+          titleController.text =
+              state.mode == DetailsMode.edit ? state.task?.title ?? '' : '';
+          return state.mode == DetailsMode.create ||
+                  state.mode == DetailsMode.edit
+              ? Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                  child: TextField(
+                    onChanged: (text) => context.read<DetailsBloc>().add(
+                          FieldsUpdated(title: text),
+                        ),
+                    controller: titleController,
+                    cursorColor: Colors.black,
+                    maxLines: null,
+                    style: const TextStyle(
+                      height: 1.3,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 24,
+                      color: Color(0xff000000),
+                    ),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      focusedBorder: UnderlineInputBorder(),
+                      hintText: 'Title',
+                    ),
                   ),
-                  decoration: const InputDecoration(
-                    fillColor: Colors.white,
-                    focusedBorder: UnderlineInputBorder(),
-                    hintText: 'Title',
-                  ),
-                ),
-              )
-            : const SizedBox();
-      },
+                )
+              : const SizedBox();
+        },
+      ),
     );
   }
 }
@@ -189,12 +262,13 @@ class _TitleLabel extends StatelessWidget {
       builder: (context, state) {
         return state.mode == DetailsMode.display
             ? Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
                 child: Text(
                   state.task?.title ?? '',
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: const TextStyle(
+                    height: 1.3,
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
                     fontSize: 24,
@@ -217,13 +291,13 @@ class _DateCreatedLabel extends StatelessWidget {
       buildWhen: (prev, curr) => prev.mode != curr.mode,
       builder: (context, state) {
         return state.mode == DetailsMode.display
-            ? const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
                 child: Text(
-                  'Tue, Jan 4',
+                  state.task?.dateCreated.displayFormat ?? '???',
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic,
                     fontSize: 12,

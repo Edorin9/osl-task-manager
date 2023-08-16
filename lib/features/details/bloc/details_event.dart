@@ -3,6 +3,7 @@ part of 'details_bloc.dart';
 @freezed
 class DetailsEvent with _$DetailsEvent {
   const factory DetailsEvent.fieldsUpdated({
+    bool? isToggled,
     String? title,
     String? description,
     DateTime? dueDate,

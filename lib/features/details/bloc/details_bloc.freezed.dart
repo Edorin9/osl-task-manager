@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? title, String? description, DateTime? dueDate)
+    required TResult Function(bool? isToggled, String? title,
+            String? description, DateTime? dueDate)
         fieldsUpdated,
     required TResult Function() editModeEntered,
     required TResult Function() saveInitiated,
@@ -28,7 +28,8 @@ mixin _$DetailsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? title, String? description, DateTime? dueDate)?
+    TResult? Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult? Function()? editModeEntered,
     TResult? Function()? saveInitiated,
@@ -37,7 +38,8 @@ mixin _$DetailsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? title, String? description, DateTime? dueDate)?
+    TResult Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult Function()? editModeEntered,
     TResult Function()? saveInitiated,
@@ -96,7 +98,8 @@ abstract class _$$FieldsUpdatedCopyWith<$Res> {
           _$FieldsUpdated value, $Res Function(_$FieldsUpdated) then) =
       __$$FieldsUpdatedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? title, String? description, DateTime? dueDate});
+  $Res call(
+      {bool? isToggled, String? title, String? description, DateTime? dueDate});
 }
 
 /// @nodoc
@@ -110,11 +113,16 @@ class __$$FieldsUpdatedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isToggled = freezed,
     Object? title = freezed,
     Object? description = freezed,
     Object? dueDate = freezed,
   }) {
     return _then(_$FieldsUpdated(
+      isToggled: freezed == isToggled
+          ? _value.isToggled
+          : isToggled // ignore: cast_nullable_to_non_nullable
+              as bool?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -134,8 +142,11 @@ class __$$FieldsUpdatedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FieldsUpdated implements FieldsUpdated {
-  const _$FieldsUpdated({this.title, this.description, this.dueDate});
+  const _$FieldsUpdated(
+      {this.isToggled, this.title, this.description, this.dueDate});
 
+  @override
+  final bool? isToggled;
   @override
   final String? title;
   @override
@@ -145,7 +156,7 @@ class _$FieldsUpdated implements FieldsUpdated {
 
   @override
   String toString() {
-    return 'DetailsEvent.fieldsUpdated(title: $title, description: $description, dueDate: $dueDate)';
+    return 'DetailsEvent.fieldsUpdated(isToggled: $isToggled, title: $title, description: $description, dueDate: $dueDate)';
   }
 
   @override
@@ -153,6 +164,8 @@ class _$FieldsUpdated implements FieldsUpdated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FieldsUpdated &&
+            (identical(other.isToggled, isToggled) ||
+                other.isToggled == isToggled) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -160,7 +173,8 @@ class _$FieldsUpdated implements FieldsUpdated {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, dueDate);
+  int get hashCode =>
+      Object.hash(runtimeType, isToggled, title, description, dueDate);
 
   @JsonKey(ignore: true)
   @override
@@ -171,32 +185,34 @@ class _$FieldsUpdated implements FieldsUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? title, String? description, DateTime? dueDate)
+    required TResult Function(bool? isToggled, String? title,
+            String? description, DateTime? dueDate)
         fieldsUpdated,
     required TResult Function() editModeEntered,
     required TResult Function() saveInitiated,
     required TResult Function() deleteInitiated,
   }) {
-    return fieldsUpdated(title, description, dueDate);
+    return fieldsUpdated(isToggled, title, description, dueDate);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? title, String? description, DateTime? dueDate)?
+    TResult? Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult? Function()? editModeEntered,
     TResult? Function()? saveInitiated,
     TResult? Function()? deleteInitiated,
   }) {
-    return fieldsUpdated?.call(title, description, dueDate);
+    return fieldsUpdated?.call(isToggled, title, description, dueDate);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? title, String? description, DateTime? dueDate)?
+    TResult Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult Function()? editModeEntered,
     TResult Function()? saveInitiated,
@@ -204,7 +220,7 @@ class _$FieldsUpdated implements FieldsUpdated {
     required TResult orElse(),
   }) {
     if (fieldsUpdated != null) {
-      return fieldsUpdated(title, description, dueDate);
+      return fieldsUpdated(isToggled, title, description, dueDate);
     }
     return orElse();
   }
@@ -249,10 +265,12 @@ class _$FieldsUpdated implements FieldsUpdated {
 
 abstract class FieldsUpdated implements DetailsEvent {
   const factory FieldsUpdated(
-      {final String? title,
+      {final bool? isToggled,
+      final String? title,
       final String? description,
       final DateTime? dueDate}) = _$FieldsUpdated;
 
+  bool? get isToggled;
   String? get title;
   String? get description;
   DateTime? get dueDate;
@@ -299,8 +317,8 @@ class _$EditModeEntered implements EditModeEntered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? title, String? description, DateTime? dueDate)
+    required TResult Function(bool? isToggled, String? title,
+            String? description, DateTime? dueDate)
         fieldsUpdated,
     required TResult Function() editModeEntered,
     required TResult Function() saveInitiated,
@@ -312,7 +330,8 @@ class _$EditModeEntered implements EditModeEntered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? title, String? description, DateTime? dueDate)?
+    TResult? Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult? Function()? editModeEntered,
     TResult? Function()? saveInitiated,
@@ -324,7 +343,8 @@ class _$EditModeEntered implements EditModeEntered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? title, String? description, DateTime? dueDate)?
+    TResult Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult Function()? editModeEntered,
     TResult Function()? saveInitiated,
@@ -417,8 +437,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? title, String? description, DateTime? dueDate)
+    required TResult Function(bool? isToggled, String? title,
+            String? description, DateTime? dueDate)
         fieldsUpdated,
     required TResult Function() editModeEntered,
     required TResult Function() saveInitiated,
@@ -430,7 +450,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? title, String? description, DateTime? dueDate)?
+    TResult? Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult? Function()? editModeEntered,
     TResult? Function()? saveInitiated,
@@ -442,7 +463,8 @@ class _$SaveInitiated implements SaveInitiated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? title, String? description, DateTime? dueDate)?
+    TResult Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult Function()? editModeEntered,
     TResult Function()? saveInitiated,
@@ -535,8 +557,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? title, String? description, DateTime? dueDate)
+    required TResult Function(bool? isToggled, String? title,
+            String? description, DateTime? dueDate)
         fieldsUpdated,
     required TResult Function() editModeEntered,
     required TResult Function() saveInitiated,
@@ -548,7 +570,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? title, String? description, DateTime? dueDate)?
+    TResult? Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult? Function()? editModeEntered,
     TResult? Function()? saveInitiated,
@@ -560,7 +583,8 @@ class _$DeleteInitiated implements DeleteInitiated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? title, String? description, DateTime? dueDate)?
+    TResult Function(bool? isToggled, String? title, String? description,
+            DateTime? dueDate)?
         fieldsUpdated,
     TResult Function()? editModeEntered,
     TResult Function()? saveInitiated,
@@ -623,11 +647,13 @@ DetailsState _$DetailsStateFromJson(Map<String, dynamic> json) {
 mixin _$DetailsState {
   DetailsMode get mode => throw _privateConstructorUsedError;
   Task? get task => throw _privateConstructorUsedError;
+  Status get statusField => throw _privateConstructorUsedError;
   String get titleField => throw _privateConstructorUsedError;
   String get descriptionField => throw _privateConstructorUsedError;
   DateTime? get dueDateField => throw _privateConstructorUsedError;
   MessageStatus get messageStatus => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  bool get shouldPopPage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -644,11 +670,13 @@ abstract class $DetailsStateCopyWith<$Res> {
   $Res call(
       {DetailsMode mode,
       Task? task,
+      Status statusField,
       String titleField,
       String descriptionField,
       DateTime? dueDateField,
       MessageStatus messageStatus,
-      String? message});
+      String? message,
+      bool shouldPopPage});
 
   $TaskCopyWith<$Res>? get task;
 }
@@ -668,11 +696,13 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
   $Res call({
     Object? mode = null,
     Object? task = freezed,
+    Object? statusField = null,
     Object? titleField = null,
     Object? descriptionField = null,
     Object? dueDateField = freezed,
     Object? messageStatus = null,
     Object? message = freezed,
+    Object? shouldPopPage = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
@@ -683,6 +713,10 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task?,
+      statusField: null == statusField
+          ? _value.statusField
+          : statusField // ignore: cast_nullable_to_non_nullable
+              as Status,
       titleField: null == titleField
           ? _value.titleField
           : titleField // ignore: cast_nullable_to_non_nullable
@@ -703,6 +737,10 @@ class _$DetailsStateCopyWithImpl<$Res, $Val extends DetailsState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      shouldPopPage: null == shouldPopPage
+          ? _value.shouldPopPage
+          : shouldPopPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -730,11 +768,13 @@ abstract class _$$_DetailsStateCopyWith<$Res>
   $Res call(
       {DetailsMode mode,
       Task? task,
+      Status statusField,
       String titleField,
       String descriptionField,
       DateTime? dueDateField,
       MessageStatus messageStatus,
-      String? message});
+      String? message,
+      bool shouldPopPage});
 
   @override
   $TaskCopyWith<$Res>? get task;
@@ -753,11 +793,13 @@ class __$$_DetailsStateCopyWithImpl<$Res>
   $Res call({
     Object? mode = null,
     Object? task = freezed,
+    Object? statusField = null,
     Object? titleField = null,
     Object? descriptionField = null,
     Object? dueDateField = freezed,
     Object? messageStatus = null,
     Object? message = freezed,
+    Object? shouldPopPage = null,
   }) {
     return _then(_$_DetailsState(
       mode: null == mode
@@ -768,6 +810,10 @@ class __$$_DetailsStateCopyWithImpl<$Res>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task?,
+      statusField: null == statusField
+          ? _value.statusField
+          : statusField // ignore: cast_nullable_to_non_nullable
+              as Status,
       titleField: null == titleField
           ? _value.titleField
           : titleField // ignore: cast_nullable_to_non_nullable
@@ -788,6 +834,10 @@ class __$$_DetailsStateCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      shouldPopPage: null == shouldPopPage
+          ? _value.shouldPopPage
+          : shouldPopPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -798,11 +848,13 @@ class _$_DetailsState implements _DetailsState {
   const _$_DetailsState(
       {this.mode = DetailsMode.display,
       this.task = null,
+      this.statusField = Status.pending,
       this.titleField = '',
       this.descriptionField = '',
       this.dueDateField = null,
       this.messageStatus = MessageStatus.none,
-      this.message = null});
+      this.message = null,
+      this.shouldPopPage = false});
 
   factory _$_DetailsState.fromJson(Map<String, dynamic> json) =>
       _$$_DetailsStateFromJson(json);
@@ -813,6 +865,9 @@ class _$_DetailsState implements _DetailsState {
   @override
   @JsonKey()
   final Task? task;
+  @override
+  @JsonKey()
+  final Status statusField;
   @override
   @JsonKey()
   final String titleField;
@@ -828,10 +883,13 @@ class _$_DetailsState implements _DetailsState {
   @override
   @JsonKey()
   final String? message;
+  @override
+  @JsonKey()
+  final bool shouldPopPage;
 
   @override
   String toString() {
-    return 'DetailsState(mode: $mode, task: $task, titleField: $titleField, descriptionField: $descriptionField, dueDateField: $dueDateField, messageStatus: $messageStatus, message: $message)';
+    return 'DetailsState(mode: $mode, task: $task, statusField: $statusField, titleField: $titleField, descriptionField: $descriptionField, dueDateField: $dueDateField, messageStatus: $messageStatus, message: $message, shouldPopPage: $shouldPopPage)';
   }
 
   @override
@@ -841,6 +899,8 @@ class _$_DetailsState implements _DetailsState {
             other is _$_DetailsState &&
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.task, task) || other.task == task) &&
+            (identical(other.statusField, statusField) ||
+                other.statusField == statusField) &&
             (identical(other.titleField, titleField) ||
                 other.titleField == titleField) &&
             (identical(other.descriptionField, descriptionField) ||
@@ -849,13 +909,24 @@ class _$_DetailsState implements _DetailsState {
                 other.dueDateField == dueDateField) &&
             (identical(other.messageStatus, messageStatus) ||
                 other.messageStatus == messageStatus) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.shouldPopPage, shouldPopPage) ||
+                other.shouldPopPage == shouldPopPage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, mode, task, titleField,
-      descriptionField, dueDateField, messageStatus, message);
+  int get hashCode => Object.hash(
+      runtimeType,
+      mode,
+      task,
+      statusField,
+      titleField,
+      descriptionField,
+      dueDateField,
+      messageStatus,
+      message,
+      shouldPopPage);
 
   @JsonKey(ignore: true)
   @override
@@ -875,11 +946,13 @@ abstract class _DetailsState implements DetailsState {
   const factory _DetailsState(
       {final DetailsMode mode,
       final Task? task,
+      final Status statusField,
       final String titleField,
       final String descriptionField,
       final DateTime? dueDateField,
       final MessageStatus messageStatus,
-      final String? message}) = _$_DetailsState;
+      final String? message,
+      final bool shouldPopPage}) = _$_DetailsState;
 
   factory _DetailsState.fromJson(Map<String, dynamic> json) =
       _$_DetailsState.fromJson;
@@ -888,6 +961,8 @@ abstract class _DetailsState implements DetailsState {
   DetailsMode get mode;
   @override
   Task? get task;
+  @override
+  Status get statusField;
   @override
   String get titleField;
   @override
@@ -898,6 +973,8 @@ abstract class _DetailsState implements DetailsState {
   MessageStatus get messageStatus;
   @override
   String? get message;
+  @override
+  bool get shouldPopPage;
   @override
   @JsonKey(ignore: true)
   _$$_DetailsStateCopyWith<_$_DetailsState> get copyWith =>
