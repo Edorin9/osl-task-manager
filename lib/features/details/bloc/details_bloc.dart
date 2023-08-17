@@ -97,7 +97,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           shouldPopPage: state.mode == DetailsMode.create,
         ),
       );
-      await _resetMessagingState(emit);
+      if (state.mode == DetailsMode.edit) await _resetMessagingState(emit);
     } catch (e) {
       emit(
         state.copyWith(
